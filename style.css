@@ -1,0 +1,132 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto Slab', serif;
+}
+* {
+  box-sizing: border-box;
+}
+.pink {
+  background-color: lightpink;
+}
+.blue {
+  background-color: lightblue;
+}
+.green {
+  background-color: lightgreen;
+}
+.black {
+  background-color: black;
+}
+.toolbar {
+  display: flex;
+  align-items: center;
+  height: 12vh;
+  background-color: rgb(32, 29, 29);
+}
+.filter-container {
+  height: 70%;
+  width: 20rem;
+  background-color: darkgray;
+  border-radius: 3px;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.filter-color-container {
+  height: 100%;
+  width: 25%;
+  background: #444;
+  border-right: 1px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.filter-color {
+  height: 40%;
+  width: 40%;
+  border-radius: 2px;
+}
+.action-container {
+  height: 70%;
+  width: 8rem;
+  background-color: darkgray;
+  border-radius: 3px;
+  display: flex;
+}
+.icon-container {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.icon {
+  font-size: 1.5rem;
+}
+.main-container {
+  min-height: 88vh;
+  background-color: aliceblue;
+  padding-top: 3rem;
+  padding-left: 3rem;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.ticket-container {
+  /* border: 1px solid red; */
+  height: 10rem;
+  width: 14rem;
+  background-color: white;
+}
+.ticket-color {
+  height: 7%;
+}
+.ticket-desc-container {
+  height: 93%;
+  padding: 0.5rem;
+  word-break: break-all; /*To break a continous text horizontally*/
+}
+.ticket-id {
+  margin-bottom: 11px;
+  font-weight: 800;
+  color: lightslategray;
+}
+.ticket-desc {
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.modal-container {
+  width: 31rem;
+  height: 18rem;
+  /* border: 2px solid red; */
+  display: flex;
+  position: absolute;
+}
+.task-container {
+  width: 76%;
+  height: 100%;
+  /* border: 1px solid green; */
+}
+.modal-color-container {
+  width: 24%;
+  height: 100%;
+  background-color: #444;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.task-box {
+  height: 100%;
+  width: 100%;
+  padding: 2rem;
+}
+.modal-color {
+  height: 12%;
+  width: 73%;
+  border-radius: 2px;
+}
