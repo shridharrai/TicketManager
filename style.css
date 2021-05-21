@@ -16,7 +16,7 @@ body {
   background-color: lightgreen;
 }
 .black {
-  background-color: black;
+  background-color: rgb(36, 33, 33);
 }
 .toolbar {
   display: flex;
@@ -70,8 +70,11 @@ body {
   min-height: 88vh;
   background-color: aliceblue;
   padding-top: 3rem;
-  padding-left: 3rem;
+  padding-right: 1vw;
+  padding-left: 3vw;
   display: flex;
+  gap: 2rem;
+  align-items: baseline;
   justify-content: space-around;
   flex-wrap: wrap;
 }
@@ -103,8 +106,9 @@ body {
   width: 31rem;
   height: 18rem;
   /* border: 2px solid red; */
-  display: flex;
+  display: none;
   position: absolute;
+  box-shadow: 0 1rem 5rem rgba(0, 0, 0, 0.637);
 }
 .task-container {
   width: 76%;
@@ -129,4 +133,12 @@ body {
   height: 12%;
   width: 73%;
   border-radius: 2px;
+}
+.border {
+  border: 5px solid black;
+}
+@media only screen and (min-width: 1800px) {
+  html {
+    font-size: 200%;
+  }
 }
