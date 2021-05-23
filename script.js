@@ -2,6 +2,8 @@ let filterColor = document.querySelectorAll('.filter');
 let filterContainers = document.querySelectorAll('.filter-color-container');
 let mainContainer = document.querySelector('.main-container');
 let plusBtn = document.querySelector('.plus');
+let crossBtn = document.querySelector('.cross');
+let lockBtn = document.querySelector('.lock');
 let modalContainer = document.querySelector('.modal-container');
 let modalColors = document.querySelectorAll('.modal-color');
 let taskBox = document.querySelector('.task-box');
@@ -17,6 +19,7 @@ if (localStorage.getItem('allTasks')) {
   }
 }
 
+//create tickets from localStorage on init
 function createTaskFromLocalStorage(taskObj) {
   let { id, color, task } = taskObj;
   let taskContainer = document.createElement('div');
@@ -29,22 +32,6 @@ function createTaskFromLocalStorage(taskObj) {
   mainContainer.appendChild(taskContainer);
 
   addFunctionality(taskContainer);
-}
-
-//set color of the container to the clicked filtercolor
-for (let i = 0; i < filterColor.length; ++i) {
-  filterColor[i].addEventListener('click', function() {
-    //get the clicked color
-    let classes = filterColor[i].getAttribute('class');
-    let strArr = classes.split(' ');
-    let color = strArr[1];
-    //then set that color to main-container
-    let mainClasses = mainContainer.getAttribute('class');
-    let mainArr = mainClasses.split(' ');
-    mainArr[1] = color;
-    mainClasses = mainArr.join(' ');
-    mainContainer.setAttribute('class', mainClasses);
-  });
 }
 
 //to display the modal whenever + btn is clicked
@@ -158,3 +145,85 @@ for (let i = 0; i < filterContainers.length; ++i) {
     }
   });
 }
+
+//delete a ticket permanently when user clicks on cross btn
+let dblClick = false;
+crossBtn.addEventListener('click', function() {
+  //this for double click flag
+  dblClick = !dblClick;
+  //change the background color of cross btn when user clicks on btn
+  if (dblClick == true) {
+    crossBtn.style.backgroundColor = 'rgb(146, 102, 35)';
+  } else {
+    crossBtn.style.backgroundColor = 'rgb(169, 169, 169)';
+  }
+
+  let ticketContainers = document.querySelectorAll('.ticket-container');
+  for (let i = 0; i < ticketContainers.length; ++i) {
+    ticketContainers[i].addEventListener('click', function() {
+      if (dblClick == true) {
+        //remove from screen
+        ticketContainers[i].style.display = 'none';
+        //remove from localStorage also
+        let ticketIdEle = ticketContainers[i].querySelector('.ticket-id');
+        let id = ticketIdEle.innerText;
+        id = id.slice(1);
+        for (let i = 0; i < allTasks.length; ++i) {
+          if (allTasks[i].id == id) {
+            allTasks.splice(i, 1);
+            let strArr = JSON.stringify(allTasks);
+            localStorage.setItem('allTasks', strArr);
+          }
+        }
+      }
+    });
+  }
+});
+
+//Lock unlock
+let lockFlag = false;
+lockBtn.addEventListener('click', function() {
+  lockFlag = !lockFlag;
+  let lockIcon = lockBtn.children[0];
+  let ticketDescContainers = document.querySelectorAll(
+    '.ticket-desc-container'
+  );
+  if (lockFlag == true) {
+    lockIcon.classList.remove('fa-lock');
+    lockIcon.classList.add('fa-unlock-alt');
+  } else {
+    lockIcon.classList.remove('fa-unlock-alt');
+    lockIcon.classList.add('fa-lock');
+    for (let i = 0; i < ticketDescContainers.length; ++i) {
+      ticketDescContainers[i].addEventListener('click', function() {
+        let ticketDesc = ticketDescContainers[i].children[1];
+        ticketDesc.setAttribute('contenteditable', false);
+      });
+    }
+  }
+
+  for (let i = 0; i < ticketDescContainers.length; ++i) {
+    ticketDescContainers[i].addEventListener('click', function() {
+      console.log('Clicked ' + lockFlag);
+      if (lockFlag == true) {
+        //remove from screen
+        console.log('Inside if');
+        let ticketDesc = ticketDescContainers[i].children[1];
+        ticketDesc.setAttribute('contenteditable', true);
+        //remove from localStorage also
+        let ticketIdEle = ticketDescContainers[i].children[0];
+        let id = ticketIdEle.innerText;
+        id = id.slice(1);
+        for (let i = 0; i < allTasks.length; ++i) {
+          if (allTasks[i].id == id) {
+            let newDesc = ticketDesc.innerText;
+            console.log(newDesc);
+            allTasks[i].task = newDesc;
+            let strArr = JSON.stringify(allTasks);
+            localStorage.setItem('allTasks', strArr);
+          }
+        }
+      }
+    });
+  }
+});
